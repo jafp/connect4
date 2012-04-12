@@ -8,7 +8,11 @@ import java.util.Scanner;
  * @author Jacob Pedersen
  *
  */
-public class TextGame extends Game {
+public class TextGame implements Game {
+	
+	private Board board;
+	private Player player1;
+	private Player player2;
 	
 	public TextGame() {
 		board = new SimpleBoard();
