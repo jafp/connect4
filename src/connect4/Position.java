@@ -16,8 +16,4 @@ public class Position {
 	public int getCol() {
 		return col;
 	}
-	
-	public String toString() {
-		return "(" + row + ", " + col + ")";
-	}
 }
