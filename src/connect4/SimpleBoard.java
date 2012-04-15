@@ -8,7 +8,11 @@ package connect4;
  */
 public class SimpleBoard implements Board {
 
-	private final Cell[][] matrix = new Cell[6][7];
+	public static final int ROWS = 6;
+	public static final int COLS = 7;
+	
+	private Position lastPosition;
+	private final Cell[][] matrix = new Cell[ROWS][COLS];
 	
 	/**
 	 * @return The matrix of cells
@@ -40,9 +44,9 @@ public class SimpleBoard implements Board {
 	 */
 	public Position place(Player player, int col) {
 		if (canPlace(col)) {
-			Position position = getFirstEmptyCell(col);
-			matrix[position.getRow()][position.getCol()] = new Cell(player, position);
-			return position;
+			lastPosition = getFirstEmptyCell(col);
+			matrix[lastPosition.getRow()][lastPosition.getCol()] = new Cell(player, lastPosition);
+			return lastPosition;
 		}
 		return null;
 	}
@@ -58,6 +62,13 @@ public class SimpleBoard implements Board {
 			return cell.getPlayer();
 		}
 		return null;
+	}
+	
+	/**
+	 * @return The position of the last placed coin.
+	 */
+	public Position getLastPosition() {
+		return lastPosition;
 	}
 	
 	/**

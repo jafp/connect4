@@ -16,4 +16,9 @@ public class Position {
 	public int getCol() {
 		return col;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return ( ((Position) obj).row == row && ((Position) obj).col == col );
+	}
 }

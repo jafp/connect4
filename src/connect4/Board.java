@@ -5,4 +5,5 @@ public interface Board {
 	boolean canPlace(int col);
 	Position place(Player player, int col);
 	Player check(Position lastCell);
+	Position getLastPosition();
 }
