@@ -1,5 +1,6 @@
 package connect4;
 
+import java.io.File;
 import java.util.Scanner;
 
 /**
@@ -14,10 +15,14 @@ public class TextGame implements Game {
 	private Player player1;
 	private Player player2;
 	
+	private File file;
+	
 	public TextGame() {
 		board = new SimpleBoard();
-		player1 = new Player("A");
-		player2 = new Player("B");
+		player1 = new Player("X");
+		player2 = new Player("0");
+		
+		file = new File("board.txt");
 	}
 
 	/**
@@ -28,6 +33,10 @@ public class TextGame implements Game {
 		Scanner input = new Scanner(System.in);
 		Player winner = null, current = player1;
 		
+		if (file.exists()) {
+			current = ((SimpleBoard) board).loadFromFile(file, player1, player2);
+		}
+		
 		while (winner == null) {
 			printBoard();
 			
@@ -36,9 +45,15 @@ public class TextGame implements Game {
 			int colIndex = -1;
 			
 			while (colIndex == -1) {
-				System.out.println("Enter column number (1-7): ");
+				System.out.println("Enter column number (1-7) or SAVE to save game: ");
 				String colString = input.next();
 				try {
+					if ("SAVE".equalsIgnoreCase(colString)) {
+						((SimpleBoard) board).persistToFile(file, current);
+						System.out.println("Board saved, goodbye!");
+						System.exit(0);
+					}
+					
 					colIndex = Integer.parseInt(colString);
 					colIndex = colIndex - 1;
 					
@@ -59,7 +74,9 @@ public class TextGame implements Game {
 			current = current == player1 ? player2 : player1;
 		}
 		
-		System.out.println("\nJubiii!!! WINNER IS " + winner + " !!! ");
+		file.delete();
+		printBoard();
+		System.out.println("\nWINNER IS: " + winner + " !");
 	}
 	
 	/**
