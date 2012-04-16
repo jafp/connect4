@@ -53,11 +53,10 @@ public class SimpleBoard implements Board {
 	}
 
 	/**
-	 * @param pos The last placed cell's position
 	 * @return Player The winner, or null if nobody has won
 	 */
-	public Player check(Position pos) {
-		Cell cell = getCell(pos, 0, 0);
+	public Player check() {
+		Cell cell = getCell(lastPosition, 0, 0);
 		
 		if (checkHorizontal(cell) || checkVertical(cell) || checkDiagonalBottomLeftTopRight(cell) || checkDiagonalBottomRightTopLeft(cell)) {
 			return cell.getPlayer();

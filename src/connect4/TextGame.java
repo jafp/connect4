@@ -78,8 +78,8 @@ public class TextGame implements Game {
 				}
 			}
 			
-			Position last = board.place(current, colIndex);
-			winner = board.check(last);
+			board.place(current, colIndex);
+			winner = board.check();
 			
 			current = current == player1 ? player2 : player1;
 		}

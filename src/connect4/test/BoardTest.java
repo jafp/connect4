@@ -74,7 +74,7 @@ public class BoardTest {
 			board.place(player1, i);
 		}
 		
-		Player winner = board.check(board.getLastPosition());
+		Player winner = board.check();
 		
 		assertNotNull(winner);
 		assertEquals(winner, player1);
@@ -86,7 +86,7 @@ public class BoardTest {
 			board.place(player2, 0);
 		}
 		
-		Player winner = board.check(board.getLastPosition());
+		Player winner = board.check();
 		
 		assertNotNull(winner);
 		assertEquals(winner, player2);
@@ -119,7 +119,7 @@ public class BoardTest {
 		board.place(player1, 2);
 		board.place(player1, 3);
 		
-		Player winner = board.check(board.getLastPosition());
+		Player winner = board.check();
 		assertEquals(winner, player1);
 	}
 	
@@ -149,7 +149,7 @@ public class BoardTest {
 		board.place(player1, 2);
 		board.place(player1, 3);
 		
-		Player winner = board.check(board.getLastPosition());
+		Player winner = board.check();
 		assertEquals(winner, player1);
 	}
 
