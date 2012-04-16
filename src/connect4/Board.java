@@ -6,4 +6,5 @@ public interface Board {
 	Position place(Player player, int col);
 	Player check(Position lastCell);
 	Position getLastPosition();
+	boolean isFull();
 }

@@ -1,6 +1,10 @@
 package connect4;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 /**
@@ -14,6 +18,7 @@ public class TextGame implements Game {
 	private Board board;
 	private Player player1;
 	private Player player2;
+	private Player current;
 	
 	private File file;
 	
@@ -31,25 +36,30 @@ public class TextGame implements Game {
 	@Override
 	public void play() {
 		Scanner input = new Scanner(System.in);
-		Player winner = null, current = player1;
+		Player winner = null;
+		
+		current = player1;
 		
 		if (file.exists()) {
-			current = ((SimpleBoard) board).loadFromFile(file, player1, player2);
+			loadFromFile();
 		}
 		
-		while (winner == null) {
+		while (winner == null && !board.isFull()) {
 			printBoard();
 			
 			System.out.println("Is it now " + current.getName());
 			
 			int colIndex = -1;
-			
 			while (colIndex == -1) {
 				System.out.println("Enter column number (1-7) or SAVE to save game: ");
 				String colString = input.next();
 				try {
+					/**
+					 * Save board and current player to file when
+					 * user enter "SAVE"
+					 */
 					if ("SAVE".equalsIgnoreCase(colString)) {
-						((SimpleBoard) board).persistToFile(file, current);
+						persistToFile();
 						System.out.println("Board saved, goodbye!");
 						System.exit(0);
 					}
@@ -74,9 +84,75 @@ public class TextGame implements Game {
 			current = current == player1 ? player2 : player1;
 		}
 		
-		file.delete();
 		printBoard();
-		System.out.println("\nWINNER IS: " + winner + " !");
+		file.delete();
+		
+		if (winner == null && board.isFull()) {
+			System.out.println("IT'S A DRAW!");
+		}
+		else {
+			System.out.println("\nWINNER IS: " + winner + " !");
+		}
+	}
+	
+	/**
+	 * Loads board and current player from the given file.
+	 * 
+	 * @param file The board file
+	 */
+	private void loadFromFile() {
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(file));
+			
+			String next = reader.readLine();
+			current = next.equals("X") ? player1 : player2;
+			
+			next = reader.readLine();
+			while (next != null) {
+				String parts[] = next.split(" ");
+				
+				Position pos = new Position(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
+				Player player = parts[2].equals("X") ? player1 : player2;
+				
+				Cell cell = new Cell(player, pos);
+				board.getMatrix()[pos.getRow()][pos.getCol()] = cell;
+				
+				next = reader.readLine();
+			}
+			
+			reader.close();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Stores the current game state to a file.
+	 */
+	private void persistToFile() {
+		try {
+			PrintWriter writer = new PrintWriter(new FileWriter(file));
+			
+			writer.println(current.getName());
+			
+			for (int i = 0; i < SimpleBoard.ROWS; i++) {
+				for (int j = 0; j < SimpleBoard.COLS; j++) {
+					Cell cell = board.getMatrix()[i][j];
+					
+					if (cell != null) {
+						Position pos = cell.getPosition();
+						writer.println(pos.getRow() + " " + pos.getCol() +  " " + cell.getPlayer().getName());
+					}
+				}
+			}
+			
+			writer.flush();
+			writer.close();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**

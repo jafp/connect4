@@ -1,10 +1,5 @@
 package connect4;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.PrintWriter;
 
 /**
  * My implementation of the board.
@@ -77,59 +72,16 @@ public class SimpleBoard implements Board {
 		return lastPosition;
 	}
 	
-	public Player loadFromFile(File file, Player a, Player b) {
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader(file));
-			
-			String next = reader.readLine();
-			String name = next.split(" ")[1];
-			
-			next = reader.readLine();
-			while (next != null) {
-				String parts[] = next.split(" ");
-				
-				Position pos = new Position(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
-				Player player = parts[2].equals(a.getName()) ? a : b;
-				
-				Cell cell = new Cell(player, pos);
-				matrix[pos.getRow()][pos.getCol()] = cell;
-				
-				next = reader.readLine();
+	/**
+	 * @return True if the board is full
+	 */
+	public boolean isFull() {
+		for (int i = 0; i < COLS; i++) {
+			if (canPlace(i)) {
+				return false;
 			}
-			
-			reader.close();
-			
-			return name.equals(a.getName()) ? a : b;
 		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	public void persistToFile(File file, Player next) {
-		try {
-			PrintWriter writer = new PrintWriter(new FileWriter(file));
-			
-			writer.println("NEXT " + next.getName());
-			
-			for (int i = 0; i < ROWS; i++) {
-				for (int j = 0; j < COLS; j++) {
-					Cell cell = matrix[i][j];
-					
-					if (cell != null) {
-						Position pos = cell.getPosition();
-						writer.println(pos.getRow() + " " + pos.getCol() +  " " + cell.getPlayer().getName());
-					}
-				}
-			}
-			
-			writer.flush();
-			writer.close();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
+		return true;
 	}
 	
 	/**
@@ -140,7 +92,7 @@ public class SimpleBoard implements Board {
 	 * @return The position of the first empty cell in the given column
 	 */
 	private Position getFirstEmptyCell(int col) {
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < 6; i++) {
 			if (matrix[i][col] == null) {
 				return new Position(i, col);
 			}
