@@ -147,7 +147,7 @@ public class SimpleBoard implements Board {
 			}
 		}
 		
-		if (count == 4) {
+		if (count >= 4) {
 			return true;
 		}
 		
@@ -177,7 +177,7 @@ public class SimpleBoard implements Board {
 			}
 		}
 		
-		if (count == 4) {
+		if (count >= 4) {
 			return true;
 		}
 	
@@ -235,7 +235,7 @@ public class SimpleBoard implements Board {
 			}
 		}
 		
-		if (count == 4) {
+		if (count >= 4) {
 			return true;
 		}
 		return false;
@@ -269,7 +269,7 @@ public class SimpleBoard implements Board {
 			}
 		}
 		
-		if (count == 4) {
+		if (count >= 4) {
 			return true;
 		}
 		return false;
