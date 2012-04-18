@@ -1,6 +1,10 @@
 package connect4.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -157,5 +161,29 @@ public class BoardTest {
 		Player winner = board.check();
 		assertEquals(winner, player1);
 	}
+	
+	@Test
+	public void testIsFull() {
+		Player cur = player1;
+		
+		assertFalse(board.isFull());
+		
+		for (int i = 0; i <= 5; i++) {
+			for (int j = 5; j >= 0; j--) {
+				board.place(cur, i);
+				cur = cur == player1 ? player2 : player1;
+			}
+		}
+		
+		for (int i = 6; i >= 0; i--) {
+			for (int j = 5; j >= 0; j--) {
+				board.place(cur, i);
+				cur = cur == player1 ? player2 : player1;
+			}
+		}
+		
+		assertTrue(board.isFull());
+	}
+	
 
 }
