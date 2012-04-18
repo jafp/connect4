@@ -2,6 +2,8 @@ package connect4;
 
 /**
  * A cell in the board
+ * 
+ * @author Daniel, Pierre, Mazen og Jacob
  */
 public class Cell {
 	/** The player that placed this cell */

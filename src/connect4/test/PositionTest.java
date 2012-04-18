@@ -6,6 +6,11 @@ import org.junit.Test;
 
 import connect4.Position;
 
+/**
+ * Unit test for the position class.
+ * 
+ * @author Daniel, Pierre, Mazen og Jacob
+ */
 public class PositionTest {
 
 	@Test

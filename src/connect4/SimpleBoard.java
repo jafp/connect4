@@ -4,7 +4,7 @@ package connect4;
 /**
  * My implementation of the board.
  * 
- * @author Jacob Pedersen 
+ * @author Daniel, Pierre, Mazen og Jacob
  * 
  */
 public class SimpleBoard implements Board {

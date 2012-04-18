@@ -6,6 +6,11 @@ import org.junit.Test;
 
 import connect4.Player;
 
+/**
+ * Unit test for the player class.
+ * 
+ * @author Daniel, Pierre, Mazen og Jacob
+ */
 public class PlayerTest {
 
 	@Test

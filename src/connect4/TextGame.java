@@ -10,8 +10,7 @@ import java.util.Scanner;
 /**
  * Implementation of game with text based interface
  * 
- * @author Jacob Pedersen
- *
+ * @author Daniel, Pierre, Mazen og Jacob
  */
 public class TextGame implements Game {
 	
@@ -25,7 +24,7 @@ public class TextGame implements Game {
 	public TextGame() {
 		board = new SimpleBoard();
 		player1 = new Player("X");
-		player2 = new Player("0");
+		player2 = new Player("O");
 		
 		file = new File("board.txt");
 	}
@@ -38,11 +37,22 @@ public class TextGame implements Game {
 		Scanner input = new Scanner(System.in);
 		Player winner = null;
 		
-		current = player1;
+		System.out.println("Welcome to Connect4!");
+		System.out.println("1) Start new game");
+		System.out.println("2) Load saved game");
+		System.out.println("Enter your choice: ");
 		
-		if (file.exists()) {
-			loadFromFile();
-		}
+		String choice = input.next();
+		
+		/**  When 2, Load saved game */
+		if ("2".equalsIgnoreCase(choice.trim())) {
+			if (file.exists()) {
+				loadFromFile();
+			}
+		/** Anything else, start a new game */
+		} else {
+			current = player1;
+		}		
 		
 		while (winner == null && !board.isFull()) {
 			printBoard();
@@ -51,7 +61,7 @@ public class TextGame implements Game {
 			
 			int colIndex = -1;
 			while (colIndex == -1) {
-				System.out.println("Enter column number (1-7) or SAVE to save game: ");
+				System.out.println("Enter column number (1-7) (SAVE or QUIT): ");
 				String colString = input.next();
 				try {
 					/**
@@ -61,6 +71,10 @@ public class TextGame implements Game {
 					if ("SAVE".equalsIgnoreCase(colString)) {
 						persistToFile();
 						System.out.println("Board saved, goodbye!");
+						System.exit(0);
+					}
+					if ("QUIT".equalsIgnoreCase(colString)) {
+						System.out.println("Goodbye!");
 						System.exit(0);
 					}
 					
@@ -129,6 +143,13 @@ public class TextGame implements Game {
 	
 	/**
 	 * Stores the current game state to a file.
+	 * 
+	 * The format of the file is like
+	 * 
+	 * X			- current player
+	 * 0 0 X		- coin placed by X at 0,0
+	 * 0 1 O		- coin placed by O as 0,1
+	 * 
 	 */
 	private void persistToFile() {
 		try {

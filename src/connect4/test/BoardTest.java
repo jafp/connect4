@@ -11,6 +11,11 @@ import connect4.Player;
 import connect4.Position;
 import connect4.SimpleBoard;
 
+/**
+ * Unit test for the board interface implementation
+ * 
+ * @author Daniel, Pierre, Mazen og Jacob
+ */
 public class BoardTest {
 
 	private Player player1;

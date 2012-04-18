@@ -3,6 +3,8 @@ package connect4;
 /**
  * Board interface.
  * Defines the operations that a board can do.
+ * 
+ * @author Daniel, Pierre, Mazen og Jacob
  */
 public interface Board {
 	/**

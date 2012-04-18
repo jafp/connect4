@@ -2,6 +2,8 @@ package connect4;
 
 /**
  * A position on the board.
+ * 
+ * @author Daniel, Pierre, Mazen og Jacob
  */
 public class Position {
 	
