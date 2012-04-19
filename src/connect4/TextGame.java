@@ -60,7 +60,7 @@ public class TextGame implements Game {
 			System.out.println("Saved games:");
 			
 			for (int i = 0; i < savedGames.size(); i++) {
-				System.out.println(i + ": " + savedGames.get(i));
+				System.out.println("  " + i + ": " + savedGames.get(i));
 			}
 			
 			int gameIndex = -1;
