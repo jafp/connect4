@@ -79,7 +79,7 @@ public class BoardTest {
 	
 	@Test
 	public void testForHorizontalWin() {
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < SimpleBoard.N; i++) {
 			board.place(player1, i);
 		}
 		
@@ -91,7 +91,7 @@ public class BoardTest {
 	
 	@Test
 	public void testForVerticalWin() {
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < SimpleBoard.N; i++) {
 			board.place(player2, 0);
 		}
 		

@@ -11,6 +11,7 @@ public class SimpleBoard implements Board {
 
 	public static final int ROWS = 6;
 	public static final int COLS = 7;
+	public static final int N = 4;
 	
 	private Position lastPosition;
 	private final Cell[][] matrix = new Cell[ROWS][COLS];
@@ -33,7 +34,7 @@ public class SimpleBoard implements Board {
 	 * @return True if we can place a coin in the given column 
 	 */
 	public boolean canPlace(int col) {
-		return matrix[5][col] == null;
+		return matrix[ROWS - 1][col] == null;
 	}
 
 	/**
@@ -91,7 +92,7 @@ public class SimpleBoard implements Board {
 	 * @return The position of the first empty cell in the given column
 	 */
 	private Position getFirstEmptyCell(int col) {
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < ROWS; i++) {
 			if (matrix[i][col] == null) {
 				return new Position(i, col);
 			}
@@ -136,18 +137,18 @@ public class SimpleBoard implements Board {
 		}
 		
 		// Count coins to the right
-		if (pos.getCol() < 6) {
+		if (pos.getCol() < (COLS - 1)) {
 			next = getCell(pos, 0, 1);
 			
 			// Continue right until the cell is empty or placed by another player
 			while (next != null && next.getPlayer() == origin.getPlayer())
 			{
 				count += 1;
-				next = next.getPosition().getCol() < 6 ? getCell(next.getPosition(), 0, 1) : null;
+				next = next.getPosition().getCol() < (COLS - 1) ? getCell(next.getPosition(), 0, 1) : null;
 			}
 		}
 		
-		if (count >= 4) {
+		if (count >= N) {
 			return true;
 		}
 		
@@ -177,7 +178,7 @@ public class SimpleBoard implements Board {
 			}
 		}
 		
-		if (count >= 4) {
+		if (count >= N) {
 			return true;
 		}
 	
@@ -226,16 +227,16 @@ public class SimpleBoard implements Board {
 		//	 /
 		//	/
 		//
-		if (pos.getCol() < 6 && pos.getRow() < 5) {
+		if (pos.getCol() < (COLS - 1) && pos.getRow() < (ROWS - 1)) {
 			Cell next = getCell(pos, 1, 1);
 			
 			while (next != null && next.getPlayer() == origin.getPlayer()) {
 				count += 1;
-				next = (next.getPosition().getCol() < 6 && next.getPosition().getRow() < 5) ? getCell(next.getPosition(), 1, 1) : null;
+				next = (next.getPosition().getCol() < (COLS - 1) && next.getPosition().getRow() < (ROWS - 1)) ? getCell(next.getPosition(), 1, 1) : null;
 			}
 		}
 		
-		if (count >= 4) {
+		if (count >= N) {
 			return true;
 		}
 		return false;
@@ -251,25 +252,25 @@ public class SimpleBoard implements Board {
 		int count = 1;
 		Position pos = origin.getPosition();
 		
-		if (pos.getCol() < 6  && pos.getRow() > 0) {
+		if (pos.getCol() < (COLS - 1)  && pos.getRow() > 0) {
 			Cell next = getCell(pos, -1, 1);
 			
 			while (next != null && next.getPlayer() == origin.getPlayer()) {
 				count += 1;
-				next = (next.getPosition().getCol() < 6  && next.getPosition().getRow() > 0) ? getCell(next.getPosition(), -1, 1) : null;
+				next = (next.getPosition().getCol() < (COLS - 1)  && next.getPosition().getRow() > 0) ? getCell(next.getPosition(), -1, 1) : null;
 			}
 		}
 		
-		if (pos.getCol() > 0 && pos.getRow() < 5) {
+		if (pos.getCol() > 0 && pos.getRow() < (ROWS - 1)) {
 			Cell next = getCell(pos, 1, -1);
 			
 			while (next != null && next.getPlayer() == origin.getPlayer()) {
 				count += 1;
-				next = (next.getPosition().getCol() > 0 && next.getPosition().getRow() < 5) ? getCell(next.getPosition(), 1, -1) : null;
+				next = (next.getPosition().getCol() > 0 && next.getPosition().getRow() < (ROWS - 1)) ? getCell(next.getPosition(), 1, -1) : null;
 			}
 		}
 		
-		if (count >= 4) {
+		if (count >= N) {
 			return true;
 		}
 		return false;

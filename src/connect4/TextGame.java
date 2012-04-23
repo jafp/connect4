@@ -32,8 +32,8 @@ public class TextGame implements Game {
 	 */
 	@Override
 	public void play() {
-		Scanner input = new Scanner(System.in);
 		Player winner = null;
+		Scanner input = new Scanner(System.in);
 		List<String> savedGames = persistence.getSavedGames();
 		
 		/**
@@ -41,6 +41,7 @@ public class TextGame implements Game {
 		 */
 		System.out.println("Welcome to Connect4!");
 		System.out.println("1) Start new game");
+		
 		if (savedGames.size() > 0) {
 			System.out.println("2) Load saved game");
 		}
@@ -157,9 +158,9 @@ public class TextGame implements Game {
 	 */
 	private void printBoard() {
 		System.out.println("\n----------------------------");
-		for (int i = 5; i >= 0; i--) {
+		for (int i = (SimpleBoard.ROWS - 1); i >= 0; i--) {
 			System.out.print("|");
-			for (int j = 0; j <= 6; j++) {
+			for (int j = 0; j <= (SimpleBoard.COLS - 1); j++) {
 				Cell cell = board.getMatrix()[i][j];
 				if (cell != null) {
 					System.out.print(" " + cell.getPlayer().getName() + " |");
