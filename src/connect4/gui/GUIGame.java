@@ -265,9 +265,11 @@ public class GUIGame extends JFrame implements Game {
 
 		@Override
 		public void mouseClicked(MouseEvent e) { 
-			if (board.canPlace(nextCoinColumn)) {
-				playState = PlayState.PREPARE_ANIMATION;
-				queueColumn = nextCoinColumn;
+			if (playState == PlayState.WAITING_FOR_PLAYER) {
+				if (board.canPlace(nextCoinColumn)) {
+					playState = PlayState.PREPARE_ANIMATION;
+					queueColumn = nextCoinColumn;
+				}
 			}
 		}
 
