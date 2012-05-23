@@ -87,7 +87,7 @@ public class GUIGame extends JFrame implements Game {
 	 * Initialize the game. 
 	 * Create the board and players, and give them colors and names.
 	 */
-	public void initialize() {
+	private void initialize() {
 		board = new SimpleBoard();
 		player1 = new GUIPlayer("X", Color.BLUE);
 		player2 = new GUIPlayer("O", Color.GREEN);
@@ -98,7 +98,7 @@ public class GUIGame extends JFrame implements Game {
 	/**
 	 * Start the thread that runs the game loop.
 	 */
-	public void start() {
+	private void start() {
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
 				loop();
@@ -111,7 +111,7 @@ public class GUIGame extends JFrame implements Game {
 	/**
 	 * The main game loop.
 	 */
-	public void loop() {		
+	private void loop() {		
 		while (true) {
 			repaint();
 			
@@ -124,7 +124,7 @@ public class GUIGame extends JFrame implements Game {
 	/**
 	 * This is where all the magic happens.
 	 */
-	public void draw(Graphics2D g) {
+	private void draw(Graphics2D g) {
 		// Force the use of anti-aliasing and good render quality
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	    g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
